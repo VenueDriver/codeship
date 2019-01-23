@@ -14,7 +14,7 @@ set -e
 ENVIRONMENT_PARAMETER=${EY_ENVIRONMENT:+"-e $EY_ENVIRONMENT"}
 CHECK_URL_COMMAND=${EY_APP_URL:+"check_url $EY_APP_URL"}
 
-gem install engineyard --no-ri --no-rdoc
+gem install engineyard
 
 echo ${ENVIRONMENT_PARAMETER}
 
