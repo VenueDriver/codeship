@@ -9,11 +9,9 @@
 # Include in your builds via
 # \curl -sSL https://raw.githubusercontent.com/codeship/scripts/master/deployments/engine_yard.sh | bash -s
 ROLLBAR_ACCESS_TOKEN=${ROLLBAR_ACCESS_TOKEN:?'You need to configure the ROLLBAR_ACCESS_TOKEN environment variable!'}
-ENVIRONMENT=$CI_BRANCH
 LOCAL_USERNAME=`whoami`
-REVISION=`git rev-parse --verify HEAD`
 curl https://api.rollbar.com/api/1/deploy/ \
   -F access_token=$ROLLBAR_ACCESS_TOKEN \
-  -F environment=$ENVIRONMENT \
+  -F environment=$CI_BRANCH \
   -F revision=$CI_COMMIT_ID \
   -F local_username=$LOCAL_USERNAME
