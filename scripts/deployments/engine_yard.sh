@@ -11,7 +11,20 @@
 EY_API_TOKEN=${EY_API_TOKEN:?'You need to configure the EY_API_TOKEN environment variable!'}
 
 set -e
-ENVIRONMENT_PARAMETER=${EY_ENVIRONMENT:+"-e $EY_ENVIRONMENT"}
+
+# set environment and account dynamically based on branch from codeship
+if [ CI_BRANCH == "master" ] ; then
+ENVIRONMENT_PARAMETER="php_production"
+ACCOUNT_PARAMETER="Hakkasan-Group-Premium"
+elif [ CI_BRANCH == "dev" ] ; then
+ENVIRONMENT_PARAMETER="php_development"
+ACCOUNT_PARAMETER="Hakkasan-Group-Standard"
+elif [ CI_BRANCH == "staging" ] ; then
+ENVIRONMENT_PARAMETER="php_staging"
+ACCOUNT_PARAMETER="Hakkasan-Group-Standard"
+fi
+
+#ENVIRONMENT_PARAMETER=${EY_ENVIRONMENT:+"-e $EY_ENVIRONMENT"}
 CHECK_URL_COMMAND=${EY_APP_URL:+"check_url $EY_APP_URL"}
 
 gem install engineyard
@@ -19,5 +32,5 @@ gem install engineyard
 echo ${ENVIRONMENT_PARAMETER}
 
 ey init
-ey deploy --ref ${CI_COMMIT_ID} --api-token "${EY_API_TOKEN}" ${ENVIRONMENT_PARAMETER}
+ey deploy --ref ${CI_COMMIT_ID} --api-token "${EY_API_TOKEN}" --environment "${ENVIRONMENT_PARAMETER}" --account "${ACCOUNT_PARAMETER}" 
 ${CHECK_URL_COMMAND}
