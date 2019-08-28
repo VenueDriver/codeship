@@ -15,13 +15,13 @@ set -e
 # set environment and account dynamically based on branch from codeship
 if [ $CI_BRANCH == "master" ] ; then
 ENVIRONMENT_PARAMETER="php_production"
-ACCOUNT_PARAMETER="Hakkasan-Group-Premium"
+ACCOUNT_PARAMETER=${EY_ACCOUNT_PRODUCTION}
 elif [ $CI_BRANCH == "dev" ] ; then
 ENVIRONMENT_PARAMETER="php_development"
-ACCOUNT_PARAMETER="Hakkasan-Group-Premium"
+ACCOUNT_PARAMETER=${EY_ACCOUNT_DEV}
 elif [ $CI_BRANCH == "staging" ] ; then
 ENVIRONMENT_PARAMETER="php_staging"
-ACCOUNT_PARAMETER="Hakkasan-Group-Premium"
+ACCOUNT_PARAMETER=${EY_ACCOUNT_STAGING}
 fi
 
 #ENVIRONMENT_PARAMETER=${EY_ENVIRONMENT:+"-e $EY_ENVIRONMENT"}
