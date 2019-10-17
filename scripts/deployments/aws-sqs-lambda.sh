@@ -1,5 +1,7 @@
 #!/bin/sh
 if [ $CI_BRANCH == "master" ]; then export CI_BRANCH="production"; fi
+if [ $CI_BRANCH == "master" ]; then export export HOST="https://vd2.venuedriver.com:443/api/v2/payments"; fi
+echo ${HOST}
 export BUCKET_NAME="sqs-payments-${CI_BRANCH}.venuedriver.engineering"
 export STACK_NAME="${STACK_NAME}-${CI_BRANCH}"
 aws s3 mb s3://${BUCKET_NAME}
